@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es2020",                // Output modern JS (change as needed)
+    "module": "esnext",                // Use ESM; use "commonjs" for legacy Node.js
+    "strict": true,                    // Enable all strict type-checking options
+    "esModuleInterop": true,           // Allow default imports from CommonJS
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,              // Speed up compilation, ignore type errors in node_modules
+    "outDir": "dist",                  // Output directory for compiled files
+    "rootDir": "src"                   // Source directory (optional; set if using a src folder)
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}
+
