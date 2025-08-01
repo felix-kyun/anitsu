@@ -1,7 +1,8 @@
 {
     "compilerOptions": {
         "target": "es2020", // Output modern JS (change as needed)
-        "module": "esnext", // Use ESM; use "commonjs" for legacy Node.js
+        "module": "nodenext", // Use ESM; use "commonjs" for legacy Node.js
+        "moduleResolution": "nodenext", // Use Node.js module resolution
         "strict": true, // Enable all strict type-checking options
         "esModuleInterop": true, // Allow default imports from CommonJS
         "forceConsistentCasingInFileNames": true,

@@ -23,28 +23,28 @@ const searchQuery = `
 const apiUrl = "https://api.allanime.day/api";
 
 const variables = {
-  search: {
-    query: "One Piece",
-  },
-  limit: 10,
-  page: 1,
-  // translationType: "SUB",
-  countryOrigin: "ALL",
+    search: {
+        query: "Naruto",
+    },
+    limit: 10,
+    page: 1,
+    // translationType: "SUB",
+    countryOrigin: "ALL",
 };
 
 const params = new URLSearchParams({
-  variables: JSON.stringify(variables),
-  query: searchQuery,
+    variables: JSON.stringify(variables),
+    query: searchQuery,
 }).toString();
 
 console.log(params);
 
 fetch(`${apiUrl}?${params}`, {
-  method: "GET",
-  headers: {
-    "Content-Type": "application/json",
-    Referer: "https://allmanga.to/",
-  },
+    method: "GET",
+    headers: {
+        "Content-Type": "application/json",
+        Referer: "https://allmanga.to/",
+    },
 })
-  .then((res) => res.json())
-  .then((data) => console.log(data.data.shows.edges));
+    .then((res) => res.json())
+    .then((data) => console.log(data.data.shows.edges));

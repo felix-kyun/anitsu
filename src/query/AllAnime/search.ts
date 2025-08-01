@@ -1,3 +1,6 @@
+import { GQLQuery } from "../../type/GQLQuery.js";
+
+export const search: GQLQuery = `
 query (
     $search: SearchInput
     $limit: Int
@@ -19,3 +22,4 @@ query (
         }
     }
 }
+`;
