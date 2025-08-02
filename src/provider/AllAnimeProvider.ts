@@ -1,13 +1,12 @@
-import { BaseProvider } from "./BaseProvider.js";
 import { AnimeInfo } from "../class/AnimeInfo.js";
 import { Episode } from "../class/Episode.js";
-import { SearchResult } from "../class/SearchResult.js";
 import { Stream } from "../class/Stream.js";
 import { GraphqlClient } from "../class/GraphqlClient.js";
 import { AllAnimeQueries } from "../query/AllAnime/index.js";
 import { AllAnimeSearchResult } from "../type/AllAnimeTypes.js";
+import { AllAnimeValidation } from "../validator/AllAnime/index.js";
 
-export class AllAnimeProvider extends BaseProvider {
+export class AllAnimeProvider {
     protected name: string = "AllAnime";
     protected url: string = "https://api.allanime.day/api";
     protected requestOpts: Record<string, unknown> = {
@@ -28,9 +27,11 @@ export class AllAnimeProvider extends BaseProvider {
             },
         );
 
-        console.dir(searchResults, { depth: null });
+        if (!AllAnimeValidation.search(searchResults)) {
+            throw new Error("Invalid search results");
+        }
 
-        return [];
+        return searchResults.shows.edges;
     }
 
     async episodes(id: string): Promise<Array<Episode>> {

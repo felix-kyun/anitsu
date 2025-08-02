@@ -26,7 +26,7 @@ query Shows(
     }
 }
 `,
-    ["_id", "name"],
+    ["_id", "name", "description"],
 );
 
 /*
