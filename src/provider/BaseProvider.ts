@@ -4,9 +4,7 @@ import { SearchResult } from "../class/SearchResult.js";
 import { Stream } from "../class/Stream.js";
 
 export abstract class BaseProvider {
-    protected name: string = "";
-    protected url: string = "";
-    protected requestOpts: Record<string, unknown> = {};
+    public name: string = "";
 
     /*
      * Query the provider for a list of anime.
