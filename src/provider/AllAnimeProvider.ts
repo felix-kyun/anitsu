@@ -1,10 +1,11 @@
-import { GraphqlQuery } from "../class/GraphqlQuery.js";
-import { AllAnimeQueries } from "../query/AllAnime/index.js";
 import { BaseProvider } from "./BaseProvider.js";
 import { AnimeInfo } from "../class/AnimeInfo.js";
 import { Episode } from "../class/Episode.js";
 import { SearchResult } from "../class/SearchResult.js";
 import { Stream } from "../class/Stream.js";
+import { GraphqlClient } from "../class/GraphqlClient.js";
+import { AllAnimeQueries } from "../query/AllAnime/index.js";
+import { AllAnimeSearchResult } from "../type/AllAnimeTypes.js";
 
 export class AllAnimeProvider extends BaseProvider {
     protected name: string = "AllAnime";
@@ -14,35 +15,31 @@ export class AllAnimeProvider extends BaseProvider {
             "Content-Type": "application/json",
             Referer: "https://allmanga.to/",
         },
-        method: "GET",
     };
+    private gqlClient = new GraphqlClient(this.url, this.requestOpts);
 
-    async search(searchString: string): Promise<Array<SearchResult>> {
-        const query: GraphqlQuery = new GraphqlQuery(
-            this.url,
+    async search(searchString: string): Promise<Array<AllAnimeSearchResult>> {
+        const searchResults = await this.gqlClient.query(
             AllAnimeQueries.search,
-            this.requestOpts,
+            {
+                search: {
+                    query: searchString,
+                },
+            },
         );
 
-        const response = await query.send({
-            search: { query: searchString },
-            limit: 30,
-            page: 1,
-            countryOrigin: "ALL",
-        });
-        console.dir((response as { data: object }).data, { depth: null });
+        console.dir(searchResults, { depth: null });
 
+        return [];
+    }
+
+    async episodes(id: string): Promise<Array<Episode>> {
         return [];
     }
 
     async info(id: string): Promise<AnimeInfo> {
         // Implementation for getting anime info
         return {} as AnimeInfo;
-    }
-
-    async episodes(id: string): Promise<Array<Episode>> {
-        // Implementation for getting episodes
-        return [];
     }
 
     async streams(episode: Episode): Promise<Array<Stream>> {
