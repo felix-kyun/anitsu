@@ -1,28 +1,33 @@
-import { GQLQuery } from "../../type/GQLQuery.js";
+import { GQLQuery } from "../../class/GQLQuery.js";
 
-export const search: GQLQuery = `
-query (
-    $search: SearchInput
-    $limit: Int
-    $page: Int
-    $translationType: VaildTranslationTypeEnumType
-    $countryOrigin: VaildCountryOriginEnumType
-) {
+export const search: GQLQuery = new GQLQuery(
+    `
+query Shows(
+    $search: SearchInput,
+    $page: Int, 
+    $offset: Int, 
+    $limit: Int, 
+    $translationType: VaildTranslationTypeEnumType, 
+    $countryOrigin: VaildCountryOriginEnumType, 
+    $queryAt: String)
+{
     shows(
-        search: $search
-        limit: $limit
-        page: $page
-        translationType: $translationType
-        countryOrigin: $countryOrigin
-    ) {
+        search: $search,
+        page: $page,
+        offset: $offset,
+        limit: $limit,
+        translationType: $translationType,
+        countryOrigin: $countryOrigin,
+        queryAt: $queryAt) 
+    {
         edges {
-            _id
-            name
-            availableEpisodes
+            @params
         }
     }
 }
-`;
+`,
+    ["_id", "name"],
+);
 
 /*
  * extracted schema
@@ -35,6 +40,34 @@ shows(
     countryOrigin: VaildCountryOriginEnumType
     queryAt: String
 ): ShowsConnection!
+
+input SearchInput {
+    dateRangeStart: Int
+    dateRangeEnd: Int
+    sortBy: SortBy
+    sortDirection: SortDirection
+    query: String
+    isManga: Boolean
+    types: [String]
+    excludeTypes: [String]
+    includeTypes: Boolean
+    genres: [String]
+    excludeGenres: [String]
+    tags: [String]
+    excludeTags: [String]
+    authors: [String]
+    studios: [String]
+    magazine: String
+    includeGenres: Boolean
+    season: VaildSeasonsEnumType
+    year: Int
+    allowAdult: Boolean
+    allowUnknown: Boolean
+    denyEcchi: Boolean
+    epRangeStart: Int
+    epRangeEnd: Int
+}
+
 
 type ShowsConnection {
   edges: [Show!]
