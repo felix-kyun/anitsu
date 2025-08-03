@@ -1,5 +1,6 @@
 import { AnimeInfo } from "../class/AnimeInfo.js";
 import { Episode } from "../class/Episode.js";
+import { Filter } from "../class/Filter.js";
 import { SearchResult } from "../class/SearchResult.js";
 import { Stream } from "../class/Stream.js";
 
@@ -19,7 +20,10 @@ export abstract class BaseProvider {
     /*
      * Query the provider for a list of episodes by id.
      */
-    abstract episodes(id: string): Promise<Array<Episode>>;
+    abstract episodes(
+        id: string,
+        type: Filter.VideoType
+    ): Promise<Array<Episode>>;
 
     /*
      * Get list of video streams for an episode.

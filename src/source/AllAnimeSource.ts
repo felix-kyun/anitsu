@@ -1,3 +1,4 @@
+import { Filter } from "../class/Filter.js";
 import { GraphqlClient } from "../class/GraphqlClient.js";
 import { AllAnimeQueries } from "../query/AllAnime/index.js";
 import {
@@ -35,18 +36,31 @@ export class AllAnimeSource {
         return searchResults.shows.edges;
     }
 
-    async episodes(id: string): Promise<Array<AllAnimeEpisode>> {
-        const episodes = await this.gqlClient.query(AllAnimeQueries.episodes, {
-            id,
-        });
+    async episodes(
+        id: string,
+        type: Filter.VideoType
+    ): Promise<Array<AllAnimeEpisode>> {
+        const episodeResponse = await this.gqlClient.query(
+            AllAnimeQueries.episodes,
+            {
+                id,
+            }
+        );
 
-        if (!AllAnimeValidation.episodes(episodes)) {
+        if (!AllAnimeValidation.episodes(episodeResponse)) {
             throw new Error("Invalid episodes data");
         }
 
-        const sub = episodes.show.availableEpisodesDetail.sub ?? [];
+        const episodes = episodeResponse.show.availableEpisodesDetail;
 
-        return sub;
+        switch (type) {
+            case Filter.VideoType.Sub:
+                return episodes.sub ?? [];
+            case Filter.VideoType.Dub:
+                return episodes.dub ?? [];
+            case Filter.VideoType.Raw:
+                return episodes.raw ?? [];
+        }
     }
 
     async info(id: string): Promise<AllAnimeInfo> {

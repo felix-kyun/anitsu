@@ -1,3 +1,7 @@
+import { BaseProvider } from "../provider/BaseProvider.js";
+import { Filter } from "./Filter.js";
+import { Episode } from "./Episode.js";
+
 interface AnimeInfoParams {
     id: string;
     name: string;
@@ -16,15 +20,18 @@ export class AnimeInfo {
     public name: string;
     public altName: string | null;
 
-    constructor({
-        id,
-        description = "No Info",
-        genres = [],
-        status = "",
-        thumbnail = "",
-        name,
-        altName,
-    }: AnimeInfoParams) {
+    constructor(
+        public provider: BaseProvider,
+        {
+            id,
+            description = "No Info",
+            genres = [],
+            status = "",
+            thumbnail = "",
+            name,
+            altName,
+        }: AnimeInfoParams
+    ) {
         this.id = id;
         this.name = name;
         this.altName = altName ?? this.name;
@@ -32,5 +39,9 @@ export class AnimeInfo {
         this.genres = genres;
         this.thumbnail = thumbnail;
         this.status = status;
+    }
+
+    async getEpisodes(type: Filter.VideoType): Promise<Array<Episode>> {
+        return this.provider.episodes(this.id, type);
     }
 }
