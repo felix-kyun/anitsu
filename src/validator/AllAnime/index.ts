@@ -1,11 +1,11 @@
 import { validateAllAnimeEpisodes } from "./episodes";
 import { validateAllAnimeInfo } from "./info";
 import { validateAllAnimeSearchResults } from "./searchResult";
-import { validateAllAnimeStreams } from "./streams";
+import { validateAllAnimeSources } from "./source";
 
 export const AllAnimeValidation = {
     search: validateAllAnimeSearchResults,
     episodes: validateAllAnimeEpisodes,
-    stream: validateAllAnimeStreams,
+    sources: validateAllAnimeSources,
     info: validateAllAnimeInfo,
 };

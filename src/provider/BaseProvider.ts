@@ -1,6 +1,7 @@
 import { AnimeInfo } from "../class/AnimeInfo.js";
+import { EmbedData } from "../class/EmbedData.js";
 import { Episode } from "../class/Episode.js";
-import { Filter } from "../class/Filter.js";
+import { Filters } from "../class/Filters.js";
 import { SearchResult } from "../class/SearchResult.js";
 import { Stream } from "../class/Stream.js";
 
@@ -22,11 +23,16 @@ export abstract class BaseProvider {
      */
     abstract episodes(
         id: string,
-        type: Filter.VideoType
+        type: Filters.VideoType,
     ): Promise<Array<Episode>>;
 
     /*
-     * Get list of video streams for an episode.
+     * Get list of streaming links for an episode.
      */
     abstract streams(episode: Episode): Promise<Array<Stream>>;
+
+    /*
+     * Get list of player embeds for an episode.
+     */
+    abstract embeds(episode: Episode): Promise<Array<EmbedData>>;
 }

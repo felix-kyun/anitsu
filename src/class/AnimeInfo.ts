@@ -1,6 +1,6 @@
 import { BaseProvider } from "../provider/BaseProvider.js";
-import { Filter } from "./Filter.js";
 import { Episode } from "./Episode.js";
+import { Filters } from "./Filters.js";
 
 interface AnimeInfoParams {
     id: string;
@@ -30,7 +30,7 @@ export class AnimeInfo {
             thumbnail = "",
             name,
             altName,
-        }: AnimeInfoParams
+        }: AnimeInfoParams,
     ) {
         this.id = id;
         this.name = name;
@@ -41,7 +41,7 @@ export class AnimeInfo {
         this.status = status;
     }
 
-    async getEpisodes(type: Filter.VideoType): Promise<Array<Episode>> {
+    async getEpisodes(type: Filters.VideoType): Promise<Array<Episode>> {
         return this.provider.episodes(this.id, type);
     }
 }

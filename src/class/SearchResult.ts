@@ -1,7 +1,7 @@
 import { BaseProvider } from "../provider/BaseProvider";
 import { AnimeInfo } from "./AnimeInfo";
 import { Episode } from "./Episode";
-import { Filter } from "./Filter";
+import { Filters } from "./Filters";
 
 export class SearchResult {
     constructor(
@@ -14,7 +14,7 @@ export class SearchResult {
         return this.provider.info(this.id);
     }
 
-    async getEpisodes(type: Filter.VideoType): Promise<Array<Episode>> {
+    async getEpisodes(type: Filters.VideoType): Promise<Array<Episode>> {
         return this.provider.episodes(this.id, type);
     }
 }

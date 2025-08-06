@@ -50,8 +50,8 @@ export const allAnimeInfoResponseSchema = z.object({
 export type AllAnimeInfo = z.infer<typeof allAnimeInfoSchema>;
 export type AllAnimeInfoResponse = z.infer<typeof allAnimeInfoResponseSchema>;
 
-// streams
-export const allAnimeStreamSchema = z.object({
+// source
+export const allAnimeSourceSchema = z.object({
     sourceUrl: z.string(),
     sourceName: z.string(),
     priority: z.number(),
@@ -67,11 +67,41 @@ export const allAnimeStreamSchema = z.object({
         .optional(),
 });
 
-export const allAnimeStreamsSchema = z.object({
+export const allAnimeSourcesSchema = z.object({
     episode: z.object({
-        sourceUrls: z.array(allAnimeStreamSchema),
+        sourceUrls: z.array(allAnimeSourceSchema),
     }),
 });
 
-export type AllAnimeStream = z.infer<typeof allAnimeStreamSchema>;
-export type AllAnimeStreams = z.infer<typeof allAnimeStreamsSchema>;
+export type AllAnimeSource = z.infer<typeof allAnimeSourceSchema>;
+export type AllAnimeSources = z.infer<typeof allAnimeSourcesSchema>;
+
+// streams
+export interface AllAnimeStream {
+    url: string;
+    resolution: number;
+    episode: string;
+    language: string;
+    id: string;
+    referrer: string;
+}
+
+// embeds
+export interface AllAnimeEmbed {
+    sourceUrl: string;
+    sourceName: string;
+    priority: number;
+    type: string;
+    className: string;
+    streamerId: string;
+    sandbox?: string;
+    downloads?: {
+        sourceName: string;
+        downloadUrl: string;
+    };
+}
+
+export interface Downloads {
+    url: string;
+    name?: string;
+}
