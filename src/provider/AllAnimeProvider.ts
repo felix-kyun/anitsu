@@ -5,7 +5,7 @@ import { Filters } from "../class/Filters.js";
 import { SearchResult } from "../class/SearchResult.js";
 import { Stream } from "../class/Stream.js";
 import { AllAnime } from "../source/AllAnime.js";
-import { AllAnimeSearchResult, AllAnimeStream } from "../type/AllAnimeTypes.js";
+import { AllAnimeSearchResult } from "../type/AllAnimeTypes.js";
 import { BaseProvider } from "./BaseProvider.js";
 
 export class AllAnimeProvider extends BaseProvider {

@@ -1,3 +1,4 @@
+export * from "./provider/BaseProvider.js";
 export * from "./provider/AllAnimeProvider.js";
 export * from "./class/AnimeInfo.js";
 export * from "./class/Episode.js";
