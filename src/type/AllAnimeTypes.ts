@@ -53,9 +53,12 @@ export type AllAnimeInfoResponse = z.infer<typeof allAnimeInfoResponseSchema>;
 // streams
 export const allAnimeStreamSchema = z.object({
     sourceUrl: z.string(),
-    sourceName: z.string().optional(),
-    priority: z.number().optional(),
-    type: z.string().optional(),
+    sourceName: z.string(),
+    priority: z.number(),
+    type: z.string(),
+    className: z.string(),
+    streamerId: z.string(),
+    sandbox: z.string().optional(),
     downloads: z
         .object({
             sourceName: z.string(),
